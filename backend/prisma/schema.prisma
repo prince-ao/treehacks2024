@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                       Int                        @id @default(autoincrement())
+  first_name               String                     @db.VarChar(50)
+  last_name                String                     @db.VarChar(50)
+  email                    String                     @unique @db.VarChar(320)
+  password                 String                     @db.VarChar(100)
+  profile_image            String                     @db.VarChar(500)
+  created                  DateTime
+  TerraAccount             TerraAccount[]
+  MedicationRecommendation MedicationRecommendation[]
+  CurrentMedication        CurrentMedication[]
+  SavedMessage             SavedMessage[]
+  SettingPreference        SettingPreference[]
+}
+
+model TerraAccount {
+  id               Int    @id @default(autoincrement())
+  userId           Int
+  terraUserId      String
+  terraResource    String
+  terraReferenceId String
+  user             User   @relation(fields: [userId], references: [id])
+}
+
+model MedicationRecommendation {
+  id                      Int      @id @default(autoincrement())
+  userId                  Int
+  recommendedDosage       String?
+  dateOfRecommendation    DateTime
+  price                   String
+  reasonForRecommendation String
+  medicationImage         String
+  medicationName          String
+  user                    User     @relation(fields: [userId], references: [id])
+}
+
+model CurrentMedication {
+  id             Int    @id @default(autoincrement())
+  userId         Int
+  medicationName String
+  dosage         String
+  user           User   @relation(fields: [userId], references: [id])
+}
+
+model SavedMessage {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  title    String
+  messages Json
+  created  DateTime
+  updated  DateTime
+  user     User     @relation(fields: [userId], references: [id])
+}
+
+model SettingPreference {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  darkMode Boolean
+  user     User    @relation(fields: [userId], references: [id])
+}
