@@ -1,5 +1,4 @@
 import { Elysia, t, NotFoundError } from "elysia";
-
 import db from "../db";
 
 const account = new Elysia().group("/accounts", (app) =>
@@ -24,7 +23,7 @@ const account = new Elysia().group("/accounts", (app) =>
       },
       {
         headers: t.Object({
-          Authorization: t.String(),
+          authorization: t.String(),
         }),
         body: t.Object({
           terra_user_id: t.String(),
@@ -54,7 +53,7 @@ const account = new Elysia().group("/accounts", (app) =>
       },
       {
         headers: t.Object({
-          Authorization: t.String(),
+          authorization: t.String(),
         }),
       }
     )

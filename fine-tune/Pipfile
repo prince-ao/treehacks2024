@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+xlrd = "*"
+urllib3 = "*"
+selenium = "*"
+requests = "*"
+idna = "*"
+cssselect = "*"
+charset-normalizer = "*"
+certifi = "*"
+bs4 = "*"
+beautifulsoup4 = "*"
+pandas = "*"
+
+[dev-packages]
+xlrd = "*"
+urllib3 = "*"
+selenium = "*"
+requests = "*"
+idna = "*"
+cssselect = "*"
+charset-normalizer = "*"
+certifi = "*"
+bs4 = "*"
+beautifulsoup4 = "*"
+
+[requires]
+python_version = "3.11"
