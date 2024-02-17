@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import { jwt } from "@elysiajs/jwt";
 import { swagger } from "@elysiajs/swagger";
-import { auth } from "./groups";
+import { auth, account, webhook } from "./groups";
 
 const app = new Elysia().use(swagger({ path: "/docs" })).use(
   jwt({
@@ -14,6 +14,8 @@ const PORT = 3000;
 
 app.get("/", () => "Hello from PrescriptionRx API");
 app.use(auth);
+app.use(account);
+app.use(webhook);
 
 app.listen(PORT, () => {
   console.log(`🦊 Elysia is running at ${PORT}`);
