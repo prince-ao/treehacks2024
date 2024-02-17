@@ -64,15 +64,113 @@ export default function TabOneScreen() {
       setProfileImage(parsed_response.user.profile_image);
       setDashboard(parsed_response.dashboard);
     })();
-  });
+  }, []);
   return (
-    <SafeAreaView style={{}}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "#FBFADA",
+        marginTop: StatusBar.currentHeight,
+        alignItems: "center",
+      }}
+    >
       <Image
         source={{ uri: profileImage }}
-        style={{ width: 100, height: 100, borderRadius: 100 }}
+        style={{ width: 100, height: 100, borderRadius: 100, marginTop: 100 }}
       />
-      <Text>Welcome Back {name}</Text>
-      <View style={{ height: 50, width: 50, backgroundColor: "gray" }}></View>
+      <Text style={{ fontSize: 20, fontWeight: "bold", color: "black" }}>
+        Welcome Back {name}
+      </Text>
+      <View
+        style={{
+          marginTop: 70,
+          justifyContent: "center",
+          flexDirection: "row",
+          backgroundColor: "#FBFADA",
+          gap: 30,
+          flexWrap: "wrap",
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            height: 130,
+            width: 130,
+            backgroundColor: "#ADBC9F",
+            borderRadius: 20,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            source={require("../../assets/images/heart.png")}
+            style={{ width: 70, height: 70 }}
+          />
+          <View
+            style={{
+              top: -10,
+              right: -10,
+              position: "absolute",
+              width: 30,
+              height: 30,
+              borderRadius: 30,
+              backgroundColor: dashboard.cardiovascular_health.status,
+            }}
+          ></View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            borderRadius: 20,
+            height: 130,
+            width: 130,
+            backgroundColor: "#ADBC9F",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            source={require("../../assets/images/kidneys.png")}
+            style={{ width: 80, height: 80 }}
+          />
+          <View
+            style={{
+              top: -10,
+              right: -10,
+              position: "absolute",
+              width: 30,
+              height: 30,
+              borderRadius: 30,
+              backgroundColor: dashboard.metabolic_health.status,
+            }}
+          ></View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            borderRadius: 20,
+            height: 130,
+            width: 130,
+            backgroundColor: "#ADBC9F",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            source={require("../../assets/images/lungs.png")}
+            style={{ width: 70, height: 70 }}
+          />
+          <View
+            style={{
+              top: -10,
+              right: -10,
+              position: "absolute",
+              borderRadius: 30,
+              width: 30,
+              height: 30,
+              backgroundColor: dashboard.respiratory_health.status,
+            }}
+          ></View>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity
         onPress={signout}
         style={{
@@ -82,8 +180,22 @@ export default function TabOneScreen() {
           marginTop: 10,
         }}
       >
-        <Text>Sign out</Text>
+        <Link href="/terra-connect/">
+          <Text>Go to terra</Text>
+        </Link>
       </TouchableOpacity>
+
+      {/* <TouchableOpacity
+        onPress={signout}
+        style={{
+          backgroundColor: "red",
+          padding: 10,
+          borderRadius: 10,
+          marginTop: 10,
+        }}
+      >
+        <Text>Sign out</Text>
+      </TouchableOpacity> */}
     </SafeAreaView>
   );
 }

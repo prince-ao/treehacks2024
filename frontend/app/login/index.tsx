@@ -177,6 +177,19 @@ function Login() {
                 </Link>
               </TouchableOpacity>
             </View>
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: "red",
+                padding: 10,
+                borderRadius: 10,
+                marginTop: 10,
+              }}
+            >
+              <Link href="/terra-connect/">
+                <Text>Go to terra</Text>
+              </Link>
+            </TouchableOpacity>
           </ScrollView>
         </View>
       </KeyboardAvoidingView>
