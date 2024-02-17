@@ -14,8 +14,6 @@ import {
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
 import { Link } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -25,83 +23,64 @@ function Login() {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  async function login() {
-    if (email !== "" && password !== "") {
-      const response = await fetch("https://prescriptionrx.net/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      const parsed_response = await response.json();
-      await AsyncStorage.setItem("token", parsed_response.token);
-      setEmail("");
-      setPassword("");
-      router.replace("/(tabs)/");
-    }
-  }
-
   return (
     <SafeAreaView
       style={{
-        flex: 1,
-        backgroundColor: "#FBFADA",
         marginTop: StatusBar.currentHeight,
+        flex: 1,
+        backgroundColor: "white",
       }} /** Remote white background */
     >
-      <StatusBar barStyle="dark-content" backgroundColor="#FBFADA" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
-        <View style={{ paddingTop: 14, paddingHorizontal: 8 }}>
+        <View style={{ paddingTop: 14, paddingHorizontal: 8 , backgroundColor : "white"}}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Image
-              source={require("../../assets/images/Logo.png")}
+              source={require("../../assets/images/logo1.png")}
               resizeMode="stretch"
               className="w-1/4 h-[30px]"
-              style={{ width: width / 4, height: height / 30 }}
+              style={{ width: width / 2, height: height / 4.5, alignSelf: "center"}}
             ></Image>
 
-            <Text style={{ fontSize: 20, marginTop: 30 }}>
+            {/* <Text style={{ fontSize: 20, marginTop: 30 }}>
               Welcome Back to PrescriptionRx
-            </Text>
-            <Text style={{ marginTop: 10, marginBottom: 30 }}>
+            </Text> */}
+            <Text style={{fontSize:20 , marginTop: 0, marginBottom: 30, alignSelf:"center"}}>
               Hello there, sign in to continue!
             </Text>
 
             <TextInput
               label="Email"
               value={email}
-              selectionColor={"#436850"}
+              selectionColor={"#123456"}
               mode="outlined"
+              
               left={
                 <TextInput.Icon
                   icon="email"
                   color={"#C0C0C0"}
-                  style={{ marginTop: 15 }}
+                  style={{ marginTop: 15}}
                 />
               }
-              activeOutlineColor={"#8ee04e"}
-              outlineColor={"#C0C0C0"}
+              activeOutlineColor={"#00ab7c"}
+              outlineColor={"#00ab7c"}
               dense={true}
-              style={{ height: 50, flex: 1, backgroundColor: "#FBFADA" }}
+              style={{ height: 50, flex: 1, backgroundColor: "white", marginBottom:15 }}
               theme={{
                 roundness: 27,
                 colors: { onSurfaceVariant: "#000" },
               }}
-              textColor={"#000"}
+              textColor={"white"}
               onChangeText={(text) => setEmail(text)}
+              
             />
 
             <TextInput
               label="Password"
               value={password}
-              selectionColor={"#436850"}
+              selectionColor={"#123456"}
               secureTextEntry={!isPasswordVisible}
               mode="outlined"
               left={
@@ -123,15 +102,10 @@ function Login() {
                   size={22}
                 />
               }
-              activeOutlineColor={"#8ee04e"}
-              outlineColor={"#C0C0C0"}
+              activeOutlineColor={"#00ab7c"}
+              outlineColor={"#00ab7c"}
               dense={true}
-              style={{
-                marginTop: 20,
-                height: 50,
-                flex: 1,
-                backgroundColor: "#FBFADA",
-              }}
+              style={{ height: 50, flex: 1, backgroundColor: "white" }}
               theme={{
                 roundness: 27,
                 colors: { onSurfaceVariant: "#000" },
@@ -143,22 +117,25 @@ function Login() {
             <View
               style={{ alignItems: "flex-end", marginTop: 10, marginEnd: 3 }}
             >
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={() =>  {}}>
                 <Text style={{ marginBottom: 30 }}>Forgot password?</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={{ marginTop: 30 }}>
+            <View style={{ marginTop: -18 }}>
               <TouchableOpacity
-                onPress={login}
+                onPress={() => {}}
                 style={{
-                  backgroundColor: "#12372A",
+                  backgroundColor: "#00ab7c",
                   borderRadius: 30,
                   paddingVertical: 20,
                   alignItems: "center",
+                  justifyContent: "center"
+                  
+
                 }}
               >
-                <Text style={{ color: "white" }}>Login</Text>
+                <Text style = {{ color: "white", fontSize:20}}>Login</Text>
               </TouchableOpacity>
             </View>
 
@@ -167,15 +144,17 @@ function Login() {
                 flexDirection: "row",
                 justifyContent: "center",
                 paddingTop: 40,
-                marginBottom: 10,
+                marginBottom: 0,
+                marginTop: -15
               }}
             >
-              <Text>Don't have an account?</Text>
+              <Text style = {{ color: "black", fontSize:15}}>Don't have an account?</Text>
               <TouchableOpacity>
-                <Link href="/signup/" replace>
-                  <Text style={{ color: "#0077FF" }}>Sign Up</Text>
+                <Link href="/signup/">
+                 <Text style = {{ color: "#0077FF", fontSize:15}}>  Sign Up</Text>
                 </Link>
               </TouchableOpacity>
+
             </View>
           </ScrollView>
         </View>
