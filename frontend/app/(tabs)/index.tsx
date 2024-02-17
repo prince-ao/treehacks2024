@@ -12,6 +12,13 @@ export default function TabOneScreen() {
       <Link href="/login/" asChild>
         <Pressable>
           <Text>Home</Text>
+          <Text>Home</Text>
+        </Pressable>
+      </Link>
+      <Link href="/signup/" asChild>
+        <Pressable>
+          <Text>Home</Text>
+          <Text>Home</Text>
         </Pressable>
       </Link>
     </View>

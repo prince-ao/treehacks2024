@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
+import { Link } from "expo-router";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -114,8 +115,8 @@ function Login() {
             <View
               style={{ alignItems: "flex-end", marginTop: 10, marginEnd: 3 }}
             >
-              <TouchableOpacity onPress={() => {}}>
-                <Text style={{ marginBottom: 30 }}>Forgot?</Text>
+              <TouchableOpacity onPress={() =>  {}}>
+                <Text style={{ marginBottom: 30 }}>Forgot password?</Text>
               </TouchableOpacity>
             </View>
 
@@ -123,7 +124,7 @@ function Login() {
               <TouchableOpacity
                 onPress={() => {}}
                 style={{
-                  backgroundColor: "#8ee04e",
+                  backgroundColor: "green",
                   borderRadius: 30,
                   paddingVertical: 20,
                   alignItems: "center",
@@ -142,9 +143,12 @@ function Login() {
               }}
             >
               <Text>Don't have an account?</Text>
-              <TouchableOpacity onPress={() => {}}>
-                <Text style={{ color: "#0077FF" }}> Sign Up</Text>
+              <TouchableOpacity>
+                <Link href="/signup/">
+                 <Text style={{ color: "#0077FF" }}>Sign Up</Text>
+                </Link>
               </TouchableOpacity>
+
             </View>
           </ScrollView>
         </View>
