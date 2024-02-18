@@ -62,44 +62,58 @@ export default function Signup() {
     <SafeAreaView
       style={{
         marginTop: StatusBar.currentHeight,
-        backgroundColor: "#FBFADA",
+        backgroundColor: "white",
         flex: 1,
       }}
     >
-      <StatusBar barStyle="dark-content" backgroundColor="#FBFADA" />
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <View
           style={{
-            backgroundColor: "#FBFADA",
-            paddingTop: 20,
+            backgroundColor: "white",
+            paddingTop: 0,
             flex: 1,
             marginHorizontal: 20,
           }}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <Image
-              source={require("../../assets/images/Logo.png")}
+              source={require("../../assets/images/logo1.png")}
               resizeMode="stretch"
-              style={{ width: width / 4, height: height / 30 }}
+              className="w-1/4 h-[30px]"
+              style={{
+                width: width / 2,
+                height: height / 4.5,
+                alignSelf: "center",
+                marginTop: 20,
+              }}
             ></Image>
 
-            <Text style={{ marginTop: 30, fontSize: 24, color: "#000" }}>
-              Get Started with prescriptionRx
-            </Text>
             <Text
               style={{
-                fontSize: 14,
-                color: "#00000040",
-                marginTop: 10,
-                marginBottom: 30,
+                marginTop: 0,
+                fontSize: 20,
+                color: "black",
+                alignSelf: "center",
+                marginBottom: 22,
               }}
             >
-              Hello there, sign up to continue!
+              Getting Started
             </Text>
-
+            {/* <Text
+                style={{
+                  fontSize: 14,
+                  color: "#00000040",
+                  marginTop: 10,
+                  marginBottom: 30,
+                }}
+              >
+                Hello there, sign up to continue!
+              </Text>
+   */}
             <TextInput
               label="First name"
               value={firstName}
@@ -112,12 +126,12 @@ export default function Signup() {
                   style={{ marginTop: 15 }}
                 />
               }
-              activeOutlineColor={"#436850"}
-              outlineColor={"#00000020"}
+              activeOutlineColor={"#00ab7c"}
+              outlineColor={"#C0C0C0"}
               dense={true}
               contentStyle={{}}
               style={{
-                backgroundColor: "#FBFADA",
+                backgroundColor: "white",
                 height: 55,
                 paddingHorizontal: 10,
                 flex: 1,
@@ -125,7 +139,7 @@ export default function Signup() {
               }}
               theme={{
                 roundness: 27,
-                colors: { onSurfaceVariant: "#00000040" },
+                colors: { onSurfaceVariant: "#00000040", primary: "#000" },
               }}
               textColor={"#000"}
               onChangeText={(text) => setFirstName(text)}
@@ -134,7 +148,7 @@ export default function Signup() {
             <TextInput
               label="Last name"
               value={lastName}
-              selectionColor={"#436850"}
+              selectionColor={"#00ab7c"}
               mode="outlined"
               left={
                 <TextInput.Icon
@@ -143,12 +157,12 @@ export default function Signup() {
                   style={{ marginTop: 15 }}
                 />
               }
-              activeOutlineColor={"#436850"}
-              outlineColor={"#00000020"}
+              activeOutlineColor={"#00ab7c"}
+              outlineColor={"#C0C0C0"}
               dense={true}
               contentStyle={{}}
               style={{
-                backgroundColor: "#FBFADA",
+                backgroundColor: "white",
                 height: 55,
                 paddingHorizontal: 10,
                 flex: 1,
@@ -166,7 +180,7 @@ export default function Signup() {
             <TextInput
               label="Email"
               value={email}
-              selectionColor={"#436850"}
+              selectionColor={"#00ab7c"}
               mode="outlined"
               left={
                 <TextInput.Icon
@@ -175,12 +189,12 @@ export default function Signup() {
                   style={{ marginTop: 15 }}
                 />
               }
-              activeOutlineColor={"#436850"}
-              outlineColor={"#00000020"}
+              activeOutlineColor={"#00ab7c"}
+              outlineColor={"#C0C0C0"}
               dense={true}
               contentStyle={{}}
               style={{
-                backgroundColor: "#FBFADA",
+                backgroundColor: "white",
                 height: 55,
                 paddingHorizontal: 10,
                 flex: 1,
@@ -198,7 +212,7 @@ export default function Signup() {
             <TextInput
               label="Password"
               value={password}
-              selectionColor={"#436850"}
+              selectionColor={"#00ab7c"}
               secureTextEntry={isPasswordVisible}
               mode="outlined"
               left={
@@ -220,12 +234,12 @@ export default function Signup() {
                   size={22}
                 />
               }
-              activeOutlineColor={"#436850"}
-              outlineColor={"#00000020"}
+              activeOutlineColor={"#00ab7c"}
+              outlineColor={"#C0C0C0"}
               dense={true}
               contentStyle={{}}
               style={{
-                backgroundColor: "#FBFADA",
+                backgroundColor: "white",
                 height: 55,
                 paddingHorizontal: 10,
                 flex: 1,
@@ -244,13 +258,16 @@ export default function Signup() {
               <TouchableOpacity
                 onPress={signup}
                 style={{
-                  backgroundColor: "#12372A",
+                  backgroundColor: "#00ab7c",
                   borderRadius: 30,
-                  paddingVertical: 15,
+                  paddingVertical: 20,
                   alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <Text style={{ fontSize: 16, color: "white" }}>Start</Text>
+                <Link href="/appinfo1/">
+                  <Text style={{ fontSize: 16, color: "white" }}>Sign Up</Text>
+                </Link>
               </TouchableOpacity>
             </View>
 
@@ -259,11 +276,12 @@ export default function Signup() {
                 flexDirection: "row",
                 justifyContent: "center",
                 paddingTop: 40,
-                marginBottom: 10,
+                marginBottom: 0,
+                marginTop: -15,
               }}
             >
               <Text style={{ color: "#00000040", fontSize: 14 }}>
-                Don't have an account?
+                Already have an account?
               </Text>
               <TouchableOpacity onPress={() => {}}>
                 <Link href="/login/" replace>

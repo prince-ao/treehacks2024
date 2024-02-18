@@ -39,7 +39,7 @@ export const getWidgetAsync = async (props: {
           providers:
             "GARMIN,WITHINGS,FITBIT,GOOGLE,OURA,WAHOO,PELOTON,ZWIFT,TRAININGPEAKS,FREESTYLELIBRE,DEXCOM,COROS,HUAWEI,OMRON,RENPHO,POLAR,SUUNTO,EIGHT,APPLE,CONCEPT2,WHOOP,IFIT,TEMPO,CRONOMETER,FATSECRET,NUTRACHECK,UNDERARMOUR",
           language: "en",
-          auth_success_redirect_url: "https://prescriptionrx.net/accounts/new",
+          auth_success_redirect_url: "https://google.com",
           auth_failure_redirect_url: "https://google.com/",
         }),
       }

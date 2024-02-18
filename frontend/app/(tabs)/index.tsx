@@ -31,22 +31,24 @@ export default function TabOneScreen() {
     router.push("/login/");
   }
   const [name, setName] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState(
+    "https://avatars3.githubusercontent.com/u/1071625?s=400&u=f19e921ec34fc145d2b0b05f6cdd3472240c885b&v=4"
+  );
   const [dashboard, setDashboard] = useState<Dashboard>({
     cardiovascular_health: {
       status: "green",
     },
     respiratory_health: {
-      status: "green",
+      status: "red",
     },
     metabolic_health: {
-      status: "green",
+      status: "yellow",
     },
   });
 
   useEffect(() => {
-    (async () => {
-      const token = await AsyncStorage.getItem("token");
+    // (async () => {
+    /*const token = await AsyncStorage.getItem("token");
       const response = await fetch(
         "https://prescriptionrx.net/home/dashboard",
         {
@@ -62,8 +64,8 @@ export default function TabOneScreen() {
 
       setName(parsed_response.user.name);
       setProfileImage(parsed_response.user.profile_image);
-      setDashboard(parsed_response.dashboard);
-    })();
+      setDashboard(parsed_response.dashboard);*/
+    // })();
   }, []);
   return (
     <SafeAreaView

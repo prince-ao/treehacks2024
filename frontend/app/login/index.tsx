@@ -27,7 +27,7 @@ function Login() {
 
   async function login() {
     if (email !== "" && password !== "") {
-      const response = await fetch("https://prescriptionrx.net/auth/login", {
+      /*const response = await fetch("https://prescriptionrx.net/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ function Login() {
       const parsed_response = await response.json();
       await AsyncStorage.setItem("token", parsed_response.token);
       setEmail("");
-      setPassword("");
+      setPassword("");*/
       router.replace("/(tabs)/");
     }
   }
@@ -49,11 +49,11 @@ function Login() {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: "#FBFADA",
+        backgroundColor: "white",
         marginTop: StatusBar.currentHeight,
       }} /** Remote white background */
     >
-      <StatusBar barStyle="dark-content" backgroundColor="#FBFADA" />
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -61,16 +61,22 @@ function Login() {
         <View style={{ paddingTop: 14, paddingHorizontal: 8 }}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Image
-              source={require("../../assets/images/Logo.png")}
+              source={require("../../assets/images/logo1.png")}
               resizeMode="stretch"
               className="w-1/4 h-[30px]"
-              style={{ width: width / 4, height: height / 30 }}
+              style={{
+                width: width / 2,
+                height: height / 4.5,
+                alignSelf: "center",
+              }}
             ></Image>
 
-            <Text style={{ fontSize: 20, marginTop: 30 }}>
+            {/* <Text style={{ fontSize: 20, marginTop: 30 }}>
               Welcome Back to PrescriptionRx
-            </Text>
-            <Text style={{ marginTop: 10, marginBottom: 30 }}>
+            </Text> */}
+            <Text
+              style={{ marginTop: 10, marginBottom: 30, alignSelf: "center" }}
+            >
               Hello there, sign in to continue!
             </Text>
 
@@ -89,7 +95,7 @@ function Login() {
               activeOutlineColor={"#8ee04e"}
               outlineColor={"#C0C0C0"}
               dense={true}
-              style={{ height: 50, flex: 1, backgroundColor: "#FBFADA" }}
+              style={{ height: 50, flex: 1, backgroundColor: "white" }}
               theme={{
                 roundness: 27,
                 colors: { onSurfaceVariant: "#000" },
@@ -130,7 +136,7 @@ function Login() {
                 marginTop: 20,
                 height: 50,
                 flex: 1,
-                backgroundColor: "#FBFADA",
+                backgroundColor: "white",
               }}
               theme={{
                 roundness: 27,
@@ -152,7 +158,7 @@ function Login() {
               <TouchableOpacity
                 onPress={login}
                 style={{
-                  backgroundColor: "#12372A",
+                  backgroundColor: "#00ab7c",
                   borderRadius: 30,
                   paddingVertical: 20,
                   alignItems: "center",
@@ -170,7 +176,7 @@ function Login() {
                 marginBottom: 10,
               }}
             >
-              <Text>Don't have an account?</Text>
+              <Text>Don't have an account? </Text>
               <TouchableOpacity>
                 <Link href="/signup/" replace>
                   <Text style={{ color: "#0077FF" }}>Sign Up</Text>
@@ -178,7 +184,7 @@ function Login() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 backgroundColor: "red",
                 padding: 10,
@@ -189,7 +195,7 @@ function Login() {
               <Link href="/terra-connect/">
                 <Text>Go to terra</Text>
               </Link>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ScrollView>
         </View>
       </KeyboardAvoidingView>
