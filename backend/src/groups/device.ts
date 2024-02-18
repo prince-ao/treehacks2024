@@ -1,4 +1,13 @@
 import { Elysia, t, NotFoundError } from "elysia";
+import { TogetherAI } from "@langchain/community/llms/togetherai";
+import { PromptTemplate } from "@langchain/core/prompts";
+
+const apiKey = process.env.TOGETHER_API_KEY;
+
+const llm = new TogetherAI({
+  apiKey: apiKey as string,
+  modelName: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+});
 
 import db from "../db";
 
@@ -30,15 +39,16 @@ async function initializeRecommendedDatabase(userId: number, terraId: string) {
   const body = await body_response.json();
   //   const nutrition = await nutrition_response.json();
 
-  const cardio_query: string = `I would like to analyze this data and give me a list of medications that you would recommend for me in the category of cardiovascular health.
+  const cardio_query: string = `System: I would like to analyze this data and give me a list of medications that you would recommend for me in the category of cardiovascular health.
     The format should be in json and should look like this:
-    [{
+    [{{
         medication_name: "",
         reason_for_recommendation: "",
         recommended_dosage: ""
-    }, ...]
+    }}, ...]
     if you have no suggestions then return an empty array. Please do not add anything superfluous.
-    Data: ${JSON.stringify(body)}`;
+    Data: {input}
+    System:`;
 
   //   const meta_query: string = `I would like to analyze 2 data and give me a list of medications that you would recommend for me in the category of metabolic health.
   //     The format should be in json and should look like this:
@@ -61,14 +71,14 @@ async function initializeRecommendedDatabase(userId: number, terraId: string) {
   //     if you have no suggestions then return an empty array. Please do not add anything superfluous.
   //     Data1: ${JSON.stringify(body)}`;
 
-  const cardio_model_response = await fetch(
-    "https://84d839fa-9eff-4a85-b8c7-cd5c88a917f3.monsterapi.ai/generate",
-    {
-      headers: { Authorization: `Bearer ${process.env.MONSTER_KEY}` },
-      method: "POST",
-      body: JSON.stringify({ prompt: cardio_query }),
-    }
-  );
+  //   const cardio_model_response = await fetch(
+  //     "https://84d839fa-9eff-4a85-b8c7-cd5c88a917f3.monsterapi.ai/generate",
+  //     {
+  //       headers: { Authorization: `Bearer ${process.env.MONSTER_KEY}` },
+  //       method: "POST",
+  //       body: JSON.stringify({ prompt: cardio_query }),
+  //     }
+  //   );
 
   //   const meta_model_response = await fetch(
   //     "https://84d839fa-9eff-4a85-b8c7-cd5c88a917f3.monsterapi.ai/generate",
@@ -88,11 +98,17 @@ async function initializeRecommendedDatabase(userId: number, terraId: string) {
   //     }
   //   );
 
-  const cardio_model = await cardio_model_response.json();
+  const prompt = PromptTemplate.fromTemplate(cardio_query);
+
+  const chain = prompt.pipe(llm);
+  const response = await chain.invoke({
+    input: JSON.stringify(body),
+  });
+
   //   const meta_model = await meta_model_response.json();
   //   const rest_model = await rest_model_response.json();
 
-  const cardio = JSON.parse(cardio_model);
+  const cardio = JSON.parse(response);
   //   const meta = JSON.parse(meta_model);
   //   const rest = JSON.parse(rest_model);
 
