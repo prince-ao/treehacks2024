@@ -56,6 +56,7 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="med-list" options={{ headerShown: false }} />
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="terra-connect" options={{ headerShown: false }} />
         <Stack.Screen name="appinfo1" options={{ headerShown: false }} />

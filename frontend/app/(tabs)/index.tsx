@@ -94,6 +94,7 @@ export default function TabOneScreen() {
         }}
       >
         <TouchableOpacity
+          onPress={() => {}}
           style={{
             height: 130,
             width: 130,

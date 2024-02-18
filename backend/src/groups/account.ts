@@ -81,6 +81,24 @@ const account = new Elysia().group("/accounts", (app) =>
         }),
       }
     )
+    .get("/medication", () => {
+      return [
+        {
+          name: "Atorvastatin",
+          image: "https://www.drugs.com/images/pills/nlm/605052579.jpg",
+        },
+        {
+          name: "Metoprolol",
+          image:
+            "https://www.drugs.com/images/pills/fio/VEN00010/metoprolol-tartrate.JPG",
+        },
+        {
+          name: "Losartan",
+          image:
+            "https://www.drugs.com/images/pills/mmx/t111927f/losartan-potassium.jpg",
+        },
+      ];
+    })
 );
 
 export default account;

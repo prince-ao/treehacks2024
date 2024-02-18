@@ -2,14 +2,21 @@ import { Elysia } from "elysia";
 import { jwt } from "@elysiajs/jwt";
 import { swagger } from "@elysiajs/swagger";
 import { auth, account, webhook, home, device } from "./groups";
+import { cors } from "@elysiajs/cors";
 
-const app = new Elysia().use(swagger({ path: "/docs" })).use(
-  jwt({
-    name: "jwt",
-    secret: process.env.JWT_SECRET as string,
-    exp: "7d",
-  })
-);
+const app = new Elysia()
+  .use(cors())
+  .use(swagger({ path: "/docs" }))
+  .use(
+    jwt({
+      name: "jwt",
+      secret: process.env.JWT_SECRET as string,
+      exp: "7d",
+    })
+  )
+  .onRequest((e) => {
+    console.log(e);
+  });
 const PORT = 3000;
 
 app.get("/", () => "Hello from PrescriptionRx API");
