@@ -6,7 +6,7 @@ const account = new Elysia().group("/accounts", (app) =>
     .post(
       "/",
       async ({ headers, body, jwt }) => {
-        const token = headers.Authorization.split("Bearer ")[1];
+        const token = headers.authorization.split("Bearer ")[1];
 
         const user_ob = await jwt.verify(token);
 
@@ -35,7 +35,7 @@ const account = new Elysia().group("/accounts", (app) =>
     .get(
       "/",
       async ({ headers, jwt }) => {
-        const token = headers.Authorization.split("Bearer ")[1];
+        const token = headers.authorization.split("Bearer ")[1];
 
         const user_ob = await jwt.verify(token);
 
@@ -54,6 +54,30 @@ const account = new Elysia().group("/accounts", (app) =>
       {
         headers: t.Object({
           authorization: t.String(),
+        }),
+      }
+    )
+    .get(
+      "/new",
+      async ({ query, jwt }) => {
+        const token = query.reference_id.split("Bearer ")[1];
+
+        const user_ob = await jwt.verify(token);
+
+        await db.terraAccount.create({
+          data: {
+            terraUserId: query.user_id,
+            terraResource: query.resource,
+            terraReferenceId: query.reference_id,
+            userId: user_ob.user_id,
+          },
+        });
+      },
+      {
+        query: t.Object({
+          user_id: t.String(),
+          reference_id: t.String(),
+          resource: t.String(),
         }),
       }
     )

@@ -19,7 +19,10 @@ import * as WebBrowser from "expo-web-browser";
 const height = Dimensions.get("screen").height;
 const width = Dimensions.get("screen").width;
 
-export const getWidgetAsync = async (props: { onSuccess: any }) => {
+export const getWidgetAsync = async (props: {
+  onSuccess: any;
+  token: string;
+}) => {
   try {
     const response = await fetch(
       "https://api.tryterra.co/v2/auth/generateWidgetSession",
@@ -32,12 +35,12 @@ export const getWidgetAsync = async (props: { onSuccess: any }) => {
           "x-api-key": "Jsdwc5LNg2YaEGw3X9RDtxB8kMRbn-Ha",
         },
         body: JSON.stringify({
-          reference_id: "12321",
+          reference_id: props.token,
           providers:
             "GARMIN,WITHINGS,FITBIT,GOOGLE,OURA,WAHOO,PELOTON,ZWIFT,TRAININGPEAKS,FREESTYLELIBRE,DEXCOM,COROS,HUAWEI,OMRON,RENPHO,POLAR,SUUNTO,EIGHT,APPLE,CONCEPT2,WHOOP,IFIT,TEMPO,CRONOMETER,FATSECRET,NUTRACHECK,UNDERARMOUR",
           language: "en",
-          auth_success_redirect_url: Linking.createURL(""),
-          auth_failure_redirect_url: Linking.createURL(""),
+          auth_success_redirect_url: "https://prescriptionrx.net/accounts/new",
+          auth_failure_redirect_url: "https://google.com/",
         }),
       }
     );
@@ -59,13 +62,17 @@ export default function TerraConnect() {
     console.log(event.url);
   };
   const _handlePressButtonAsync = async () => {
-    getWidgetAsync({ onSuccess: setUrl });
+    const token = (await AsyncStorage.getItem("token")) as string;
+    getWidgetAsync({ onSuccess: setUrl, token });
     await WebBrowser.openBrowserAsync(url);
   };
 
   useEffect(() => {
-    Linking.addEventListener("url", _handleURL);
-    getWidgetAsync({ onSuccess: setUrl });
+    async () => {
+      const token = (await AsyncStorage.getItem("token")) as string;
+      Linking.addEventListener("url", _handleURL);
+      getWidgetAsync({ onSuccess: setUrl, token });
+    };
   }, []);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FBFADA" }}>
