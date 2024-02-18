@@ -23,8 +23,6 @@ export default function TabLayout() {
       screenOptions={{
         tabBarStyle: { backgroundColor: "#12372A" },
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}
     >
@@ -41,9 +39,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: "Tab Two",
+          tabBarLabel: () => null,
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons size={size} name="chatbox" color={color} />
+          ),
         }}
       />
     </Tabs>

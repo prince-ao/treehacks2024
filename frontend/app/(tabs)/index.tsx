@@ -71,7 +71,7 @@ export default function TabOneScreen() {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: "#FBFADA",
+        backgroundColor: "white",
         marginTop: StatusBar.currentHeight,
         alignItems: "center",
       }}
@@ -88,7 +88,7 @@ export default function TabOneScreen() {
           marginTop: 70,
           justifyContent: "center",
           flexDirection: "row",
-          backgroundColor: "#FBFADA",
+          backgroundColor: "white",
           gap: 30,
           flexWrap: "wrap",
         }}
@@ -173,7 +173,7 @@ export default function TabOneScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={signout}
         style={{
           backgroundColor: "red",
@@ -185,7 +185,7 @@ export default function TabOneScreen() {
         <Link href="/terra-connect/">
           <Text>Go to terra</Text>
         </Link>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {/* <TouchableOpacity
         onPress={signout}

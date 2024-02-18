@@ -13,8 +13,8 @@ import {
 } from "react-native";
 import { useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
+import { router } from "expo-router";
 
 const height = Dimensions.get("screen").height;
 const width = Dimensions.get("screen").width;
@@ -39,8 +39,6 @@ export const getWidgetAsync = async (props: {
           providers:
             "GARMIN,WITHINGS,FITBIT,GOOGLE,OURA,WAHOO,PELOTON,ZWIFT,TRAININGPEAKS,FREESTYLELIBRE,DEXCOM,COROS,HUAWEI,OMRON,RENPHO,POLAR,SUUNTO,EIGHT,APPLE,CONCEPT2,WHOOP,IFIT,TEMPO,CRONOMETER,FATSECRET,NUTRACHECK,UNDERARMOUR",
           language: "en",
-          auth_success_redirect_url: "https://google.com",
-          auth_failure_redirect_url: "https://google.com/",
         }),
       }
     );
@@ -53,29 +51,38 @@ export const getWidgetAsync = async (props: {
 };
 
 export default function TerraConnect() {
-  const [url, setUrl] = useState("");
+  async function showWidget() {
+    const token = await AsyncStorage.getItem("token");
+    try {
+      const widget = await fetch(
+        "https://api.tryterra.co/v2/auth/generateWidgetSession",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "dev-id": "prescriberx-testing-nS7RbPHovQ",
+            "content-type": "application/json",
+            "x-api-key": "Jsdwc5LNg2YaEGw3X9RDtxB8kMRbn-Ha",
+          },
+          body: JSON.stringify({
+            reference_id: token,
+            providers:
+              "GARMIN,WITHINGS,FITBIT,GOOGLE,OURA,WAHOO,PELOTON,ZWIFT,TRAININGPEAKS,FREESTYLELIBRE,DEXCOM,COROS,HUAWEI,OMRON,RENPHO,POLAR,SUUNTO,EIGHT,APPLE,CONCEPT2,WHOOP,IFIT,TEMPO,CRONOMETER,FATSECRET,NUTRACHECK,UNDERARMOUR",
+            language: "en",
+            auth_success_redirect_url: "https://prescriptionrx.net/device/auth",
+          }),
+        }
+      );
+      const json = await widget.json();
 
-  const _handleURL = (event: { url: any }) => {
-    if (Platform.OS === "ios") {
-      WebBrowser.dismissBrowser();
+      await WebBrowser.openBrowserAsync(json.url);
+    } catch (e) {
+      console.log(e);
     }
-    console.log(event.url);
-  };
-  const _handlePressButtonAsync = async () => {
-    const token = (await AsyncStorage.getItem("token")) as string;
-    getWidgetAsync({ onSuccess: setUrl, token });
-    await WebBrowser.openBrowserAsync(url);
-  };
+  }
 
-  useEffect(() => {
-    async () => {
-      const token = (await AsyncStorage.getItem("token")) as string;
-      Linking.addEventListener("url", _handleURL);
-      getWidgetAsync({ onSuccess: setUrl, token });
-    };
-  }, []);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBFADA" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text
           style={{
@@ -112,7 +119,13 @@ export default function TerraConnect() {
             paddingTop: 25,
           }}
         ></View>
-        <TouchableOpacity onPress={_handlePressButtonAsync}>
+        <TouchableOpacity
+          onPress={
+            () => {
+              router.replace("/(tabs)/");
+            } /*_handlePressButtonAsync*/
+          }
+        >
           <Text
             style={{
               fontSize: 18,
@@ -121,7 +134,7 @@ export default function TerraConnect() {
               marginVertical: 20,
               marginHorizontal: 20,
               fontWeight: "bold",
-              backgroundColor: "#436850",
+              backgroundColor: "#00ab7c",
               paddingVertical: 14,
               borderRadius: 10,
             }}

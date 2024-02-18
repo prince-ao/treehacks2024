@@ -7,8 +7,10 @@ import {
   SafeAreaView,
   Dimensions,
   Image,
+  StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 
 const height = Dimensions.get("screen").height;
 const width = Dimensions.get("screen").width;
@@ -16,6 +18,7 @@ const width = Dimensions.get("screen").width;
 // Page 2 content as a separate functional component
 const Page2 = () => (
   <View>
+    <StatusBar barStyle="dark-content" backgroundColor="white" />
     <View style={{ justifyContent: "center", marginTop: 20 }}>
       <Image
         source={require("../../assets/images/2.png")}
@@ -52,6 +55,35 @@ const Page2 = () => (
           paddingVertical: 47,
         }}
       ></View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingVertical: 20,
+        }}
+      >
+        <View
+          style={{
+            borderColor: "#E0E0E0",
+            borderWidth: 1,
+            padding: 4,
+            borderRadius: 20,
+            backgroundColor: "#E0E0E0",
+            marginHorizontal: 5,
+          }}
+        ></View>
+        <View
+          style={{
+            borderColor: "#00ab7c",
+            borderWidth: 1,
+            paddingHorizontal: 12,
+            borderRadius: 10,
+            backgroundColor: "#00ab7c",
+            paddingVertical: 4,
+          }}
+        ></View>
+      </View>
     </View>
   </View>
 );
@@ -110,13 +142,45 @@ export default function On2() {
                   paddingVertical: 20,
                 }}
               ></View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingVertical: 20,
+                }}
+              >
+                <View
+                  style={{
+                    borderColor: "#00ab7c",
+                    borderWidth: 1,
+                    paddingHorizontal: 12,
+                    borderRadius: 10,
+                    backgroundColor: "#00ab7c",
+                    paddingVertical: 4,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    borderColor: "#E0E0E0",
+                    borderWidth: 1,
+                    padding: 4,
+                    borderRadius: 20,
+                    backgroundColor: "#E0E0E0",
+                    marginHorizontal: 5,
+                  }}
+                ></View>
+              </View>
             </View>
           </View>
         ) : (
           <Page2 />
         )}
         <TouchableOpacity
-          onPress={() => setScreen(screen === 1 ? 2 : 1)}
+          onPress={() => {
+            if (screen === 2) router.push("/terra-connect/");
+            setScreen(screen === 1 ? 2 : 2);
+          }}
           style={{
             backgroundColor: "#00ab7c",
             borderRadius: 30,
@@ -127,9 +191,7 @@ export default function On2() {
             marginTop: 30,
           }}
         >
-          <Text style={{ color: "#fff", fontSize: 20 }}>
-            {screen === 1 ? "Next" : "Next"}
-          </Text>
+          <Text style={{ color: "#fff", fontSize: 20 }}>Next</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
