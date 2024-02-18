@@ -47,7 +47,7 @@ export default function TChat() {
     }
   };
 
-  const OPENAI_API_KEY = "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"; // Make sure this is securely managed
+  const OPENAI_API_KEY = "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"; // Make sure this is securely managed
 
   const askGPT3 = async (prompt: string) => {
     prompt =

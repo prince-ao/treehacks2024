@@ -36,7 +36,7 @@ export default function TabOneScreen() {
   );
   const [dashboard, setDashboard] = useState<Dashboard>({
     cardiovascular_health: {
-      status: "green",
+      status: "red",
     },
     respiratory_health: {
       status: "green",
@@ -62,7 +62,7 @@ export default function TabOneScreen() {
 
       setName(parsed_response.user.name);
       // setProfileImage(parsed_response.user.profile_image);
-      setDashboard(parsed_response.dashboard);
+      // setDashboard(parsed_response.dashboard);
     })();
   }, []);
   return (
@@ -94,8 +94,15 @@ export default function TabOneScreen() {
         source={{ uri: profileImage }}
         style={{ width: 100, height: 100, borderRadius: 100, marginTop: 100 }}
       />
-      <Text style={{ fontSize: 20, fontWeight: "bold", color: "black" }}>
-        Welcome Back {name}
+      <Text
+        style={{
+          marginTop: 20,
+          fontSize: 20,
+          fontWeight: "bold",
+          color: "black",
+        }}
+      >
+        Welcome Back, Pavlo!
       </Text>
       <View
         style={{
