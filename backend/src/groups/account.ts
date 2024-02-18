@@ -62,14 +62,14 @@ const account = new Elysia().group("/accounts", (app) =>
       async ({ query, jwt }) => {
         const token = query.reference_id.split("Bearer ")[1];
 
-        const user_ob = await jwt.verify(token);
+        const user_ob = (await jwt.verify(token)) || 0;
 
         await db.terraAccount.create({
           data: {
             terraUserId: query.user_id,
             terraResource: query.resource,
             terraReferenceId: query.reference_id,
-            userId: user_ob.user_id || 0,
+            userId: user_ob.user_id,
           },
         });
       },
