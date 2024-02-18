@@ -18,6 +18,8 @@ const device = new Elysia().group("/device", (app) =>
             terraReferenceId: query.reference_id,
           },
         });
+
+        return "Success. Please Exit.";
       } catch (e) {
         set.status = 400;
         return "Unable to verify user";

@@ -76,6 +76,8 @@ export default function TerraConnect() {
       const json = await widget.json();
 
       await WebBrowser.openBrowserAsync(json.url);
+
+      router.replace("/(tabs)/");
     } catch (e) {
       console.log(e);
     }
@@ -119,13 +121,7 @@ export default function TerraConnect() {
             paddingTop: 25,
           }}
         ></View>
-        <TouchableOpacity
-          onPress={
-            () => {
-              router.replace("/(tabs)/");
-            } /*_handlePressButtonAsync*/
-          }
-        >
+        <TouchableOpacity onPress={showWidget}>
           <Text
             style={{
               fontSize: 18,
