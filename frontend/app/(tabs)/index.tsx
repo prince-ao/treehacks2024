@@ -32,7 +32,7 @@ export default function TabOneScreen() {
   }
   const [name, setName] = useState("");
   const [profileImage, setProfileImage] = useState(
-    "https://avatars3.githubusercontent.com/u/1071625?s=400&u=f19e921ec34fc145d2b0b05f6cdd3472240c885b&v=4"
+    "https://cdn.discordapp.com/attachments/1207052904557584407/1208779671395766282/profile.png?ex=65e486cb&is=65d211cb&hm=2850a8e3d40d78c447cb58ba7fef248c8ed43983b72f3f718f1b2063787f1750&"
   );
   const [dashboard, setDashboard] = useState<Dashboard>({
     cardiovascular_health: {
@@ -61,7 +61,7 @@ export default function TabOneScreen() {
       const parsed_response = await response.json();
 
       setName(parsed_response.user.name);
-      setProfileImage(parsed_response.user.profile_image);
+      // setProfileImage(parsed_response.user.profile_image);
       setDashboard(parsed_response.dashboard);
     })();
   }, []);
@@ -74,6 +74,22 @@ export default function TabOneScreen() {
         alignItems: "center",
       }}
     >
+      <TouchableOpacity
+        onPress={async () => {
+          await AsyncStorage.removeItem("token");
+          router.replace("/login/");
+        }}
+        style={{
+          backgroundColor: "red",
+          padding: 10,
+          borderRadius: 10,
+          marginTop: 10,
+          alignSelf: "flex-end",
+          marginEnd: 10,
+        }}
+      >
+        <Text>Sign Out</Text>
+      </TouchableOpacity>
       <Image
         source={{ uri: profileImage }}
         style={{ width: 100, height: 100, borderRadius: 100, marginTop: 100 }}
