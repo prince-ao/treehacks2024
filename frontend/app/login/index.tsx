@@ -209,7 +209,7 @@ function Login() {
                   </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   style={{
                     backgroundColor: "red",
                     padding: 10,
@@ -220,7 +220,7 @@ function Login() {
                   <Link href="/med-list/">
                     <Text>medlink</Text>
                   </Link>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </ScrollView>
             </View>
           </KeyboardAvoidingView>

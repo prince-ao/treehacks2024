@@ -14,7 +14,7 @@ const App = () => {
   //   })();
   // }, []);
   // TODO: Check if user is logged in
-  return <Redirect href="/login/" />;
+  return <Redirect href="/med-list/" />;
 };
 
 export default App;

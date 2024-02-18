@@ -39,16 +39,16 @@ export default function TabOneScreen() {
       status: "green",
     },
     respiratory_health: {
-      status: "red",
+      status: "green",
     },
     metabolic_health: {
-      status: "yellow",
+      status: "green",
     },
   });
 
   useEffect(() => {
-    // (async () => {
-    /*const token = await AsyncStorage.getItem("token");
+    (async () => {
+      const token = await AsyncStorage.getItem("token");
       const response = await fetch(
         "https://prescriptionrx.net/home/dashboard",
         {
@@ -58,14 +58,12 @@ export default function TabOneScreen() {
           },
         }
       );
-      console.log(response);
       const parsed_response = await response.json();
-      console.log(parsed_response);
 
       setName(parsed_response.user.name);
       setProfileImage(parsed_response.user.profile_image);
-      setDashboard(parsed_response.dashboard);*/
-    // })();
+      setDashboard(parsed_response.dashboard);
+    })();
   }, []);
   return (
     <SafeAreaView
@@ -94,7 +92,9 @@ export default function TabOneScreen() {
         }}
       >
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => {
+            router.push({ pathname: "/med-list/", params: { from: "heart" } });
+          }}
           style={{
             height: 130,
             width: 130,
@@ -121,6 +121,9 @@ export default function TabOneScreen() {
           ></View>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            router.push({ pathname: "/med-list/", params: { from: "kidney" } });
+          }}
           style={{
             borderRadius: 20,
             height: 130,
@@ -147,6 +150,9 @@ export default function TabOneScreen() {
           ></View>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            router.push({ pathname: "/med-list/", params: { from: "lungs" } });
+          }}
           style={{
             borderRadius: 20,
             height: 130,

@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import { jwt } from "@elysiajs/jwt";
 import { swagger } from "@elysiajs/swagger";
-import { auth, account, webhook, home, device } from "./groups";
+import { auth, account, webhook, home, device, medication } from "./groups";
 import { cors } from "@elysiajs/cors";
 
 const app = new Elysia()
@@ -25,5 +25,6 @@ app.use(account);
 app.use(webhook);
 app.use(home);
 app.use(device);
+app.use(medication);
 
 app.listen(PORT, (s) => console.log(`🦊 Elysia is running at ${PORT}`));

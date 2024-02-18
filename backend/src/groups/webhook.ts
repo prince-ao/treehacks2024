@@ -9,7 +9,7 @@ const terra = new Terra(DEV_ID as string, API_KEY as string, SECRET as string);
 
 const webhook = new Elysia().group("/consumeTerraWebhook", (app) =>
   app.post("/", ({ body, set }) => {
-    console.log(body);
+    console.log("web hook:", body);
     set.status = 200;
     return;
   })

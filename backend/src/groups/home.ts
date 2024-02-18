@@ -88,8 +88,6 @@ const home = new Elysia().group("/home", (app) =>
         };
       }
 
-      console.log(dashboard);
-
       return {
         user: {
           name: `${user.first_name} ${user.last_name}`,

@@ -12,17 +12,18 @@ import { Elysia, t, NotFoundError } from "elysia";
 import db from "../db";
 
 async function initializeRecommendedDatabase(userId: number, terraId: string) {
-  //   const body_response = await fetch(
-  //     `https://api.tryterra.co/v2/body?to_webhook=false&user_id=${terraId}`,
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         accept: "application/json",
-  //         "dev-id": process.env.TERRA_DEV_KEY!,
-  //         "x-api-key": process.env.TERRA_API_KEY!,
-  //       },
-  //     }
-  //   );
+  const body_response = await fetch(
+    `https://api.tryterra.co/v2/body?to_webhook=false&user_id=${terraId}`,
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "dev-id": process.env.TERRA_DEV_KEY!,
+        "x-api-key": process.env.TERRA_API_KEY!,
+      },
+    }
+  );
+  const body = await body_response.json();
   //   const nutrition_response = await fetch(
   //     "https://api.tryterra.co/v2/nutrition?to_webhook=false&user_id=${terraId}",
   //     {
@@ -36,16 +37,22 @@ async function initializeRecommendedDatabase(userId: number, terraId: string) {
   //   );
   //   const body = await body_response.json();
   //   const nutrition = await nutrition_response.json();
-  /*const cardio_query: string = `System: I would like to analyze this data and give me a list of medications that you would recommend for me in the category of cardiovascular health.
-    The format should be in json and should look like this:
-    [{{
-        medication_name: "",
-        reason_for_recommendation: "",
-        recommended_dosage: ""
-    }}, ...]
-    if you have no suggestions then return an empty array. Please do not add anything superfluous.
-    Data: {input}
-    System:`;*/
+  const cardio_query: string = `System: Based on the provided patient data, generate a list of recommended medications specifically for cardiovascular health. Ensure that these recommendations adhere to established medical guidelines and consider any patient-specific factors such as age, existing conditions, or contraindications. The output should be in JSON format, as shown below:
+
+[
+    {
+        "medication_name": "",
+        "reason_for_recommendation": "",
+        "recommended_dosage": "",
+        "price_estimate": ""
+    },
+    ...
+]
+
+If there are no suitable medication recommendations, return an empty array. Please do not include any superfluous information. Note that these recommendations should be verified by a medical professional.
+
+Data: ${JSON.stringify(body)}
+System:`;
   //   const meta_query: string = `I would like to analyze 2 data and give me a list of medications that you would recommend for me in the category of metabolic health.
   //     The format should be in json and should look like this:
   //     [{
@@ -65,14 +72,32 @@ async function initializeRecommendedDatabase(userId: number, terraId: string) {
   //     }, ...]
   //     if you have no suggestions then return an empty array. Please do not add anything superfluous.
   //     Data1: ${JSON.stringify(body)}`;
-  //   const cardio_model_response = await fetch(
-  //     "https://84d839fa-9eff-4a85-b8c7-cd5c88a917f3.monsterapi.ai/generate",
-  //     {
-  //       headers: { Authorization: `Bearer ${process.env.MONSTER_KEY}` },
-  //       method: "POST",
-  //       body: JSON.stringify({ prompt: cardio_query }),
-  //     }
-  //   );
+  const cardio_model_response = await fetch(
+    "https://84d839fa-9eff-4a85-b8c7-cd5c88a917f3.monsterapi.ai/generate",
+    {
+      headers: { Authorization: `Bearer ${process.env.MONSTER_KEY}` },
+      method: "POST",
+      body: JSON.stringify({ prompt: cardio_query }),
+    }
+  );
+
+  try {
+    const response = await cardio_model_response.text();
+    const data = JSON.parse(response);
+
+    db.medicationRecommendation.createMany({
+      data: data.map((d: any) => ({
+        userId,
+        recommendedDosage: d.recommended_dosage,
+        dateOfRecommendation: new Date(),
+        price: d.price_estimate,
+        reasonForRecommendation: d.reason_for_recommendation,
+        medicationImage:
+          "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fst.depositphotos.com%2F1979759%2F3725%2Fi%2F450%2Fdepositphotos_37253041-stock-photo-medical-pill.jpg&f=1&nofb=1&ipt=98e0d21974aa961386933a5d49b4df86b276ccb60d8ec47aa971e33935f55a7e&ipo=images",
+        medicationName: d.medication_name,
+      })),
+    });
+  } catch (e) {}
   //   const meta_model_response = await fetch(
   //     "https://84d839fa-9eff-4a85-b8c7-cd5c88a917f3.monsterapi.ai/generate",
   //     {
