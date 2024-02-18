@@ -69,7 +69,7 @@ const account = new Elysia().group("/accounts", (app) =>
             terraUserId: query.user_id,
             terraResource: query.resource,
             terraReferenceId: query.reference_id,
-            userId: user_ob.user_id,
+            userId: user_ob.user_id || 0,
           },
         });
       },
